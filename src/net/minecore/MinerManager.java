@@ -6,12 +6,10 @@ import org.bukkit.entity.Player;
 
 public class MinerManager {
 	
-	private MineCore mc;
 	private TreeMap<String, Miner> miners;
 	
 	
 	public MinerManager(MineCore m){
-		mc = m;
 		miners = new TreeMap<String, Miner>();
 	}
 	
@@ -27,6 +25,10 @@ public class MinerManager {
 
 	public Miner getMiner(Player p){
 		return getMiner(p.getName());
+	}
+	
+	public TreeMap<String, Miner> getMiners(){
+		return miners;
 	}
 
 }
