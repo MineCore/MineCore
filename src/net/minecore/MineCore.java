@@ -57,4 +57,12 @@ public class MineCore extends JavaPlugin {
 			}
 	}
 
+        public MinerManager getMinerManager(){
+                return mm;
+        }
+
+        public Miner getMiner(){
+                return mm.getMiner();
+        }
+
 }
