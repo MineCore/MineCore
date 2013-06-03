@@ -6,9 +6,3 @@ version: 1.0.0
 loadbefore: [MinePermit, MinePlot]
 
 commands:
-    minepermit:
-        description: Core minepermit commands
-        aliases: mp
-        usage: |
-            /<command> init <world>
-        permission: mp.core
