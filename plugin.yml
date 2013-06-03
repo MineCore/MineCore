@@ -1,0 +1,14 @@
+main: net.minecore.MineCore
+author: Numenorean95
+authors: [tcoan98]
+name: MineCore
+version: 1.0.0
+loadbefore: [MinePermit, MinePlot]
+
+commands:
+    minepermit:
+        description: Core minepermit commands
+        aliases: mp
+        usage: |
+            /<command> init <world>
+        permission: mp.core
