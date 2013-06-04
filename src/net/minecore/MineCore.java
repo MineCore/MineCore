@@ -11,13 +11,15 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class MineCore extends JavaPlugin {
 
 	public Logger log;
-	MinerManager mm;
-	File playerFolder;
+	private MinerManager mm;
+	private File playerFolder;
+	private EconomyManager em;
 
 	@Override
 	public void onLoad() {
 		log = this.getLogger();
 		mm = new MinerManager(this);
+		em = new EconomyManager();
 
 		playerFolder = new File(this.getDataFolder().getPath() + File.separator
 				+ "players");
@@ -48,6 +50,7 @@ public class MineCore extends JavaPlugin {
 	public void onDisable() {
 		for (Miner m : mm.getMiners().values())
 			try {
+				log.info("Saving player " + m.getPlayerName());
 				m.saveMinerToYamlFile(new File(playerFolder.getPath()
 						+ File.separator + m.getPlayerName() + ".yml"));
 			} catch (FileNotFoundException e) {
@@ -68,6 +71,10 @@ public class MineCore extends JavaPlugin {
 
 	public Miner getMiner(String name) {
 		return mm.getMiner(name);
+	}
+	
+	public EconomyManager getEconomyManager(){
+		return em;
 	}
 
 }
