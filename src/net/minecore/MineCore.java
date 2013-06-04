@@ -9,42 +9,47 @@ import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class MineCore extends JavaPlugin {
-	
+
 	public Logger log;
 	MinerManager mm;
 	File playerFolder;
-	
+
 	@Override
-	public void onLoad(){
+	public void onLoad() {
 		log = this.getLogger();
 		mm = new MinerManager(this);
-		
-		playerFolder = new File(this.getDataFolder().getPath() + File.separator + "players");
+
+		playerFolder = new File(this.getDataFolder().getPath() + File.separator
+				+ "players");
 		playerFolder.mkdirs();
-		
-		for(File f : playerFolder.listFiles())
-			if(f.getName().endsWith(".yml")){
+
+		for (File f : playerFolder.listFiles())
+			if (f.getName().endsWith(".yml")) {
 				try {
-					mm.addMiner(Miner.loadMinerFromYamlFile(f.getName().substring(0, f.getName().indexOf('.')), f));
+					mm.addMiner(Miner.loadMinerFromYamlFile(f.getName()
+							.substring(0, f.getName().indexOf('.')), f));
 				} catch (IOException e) {
-					log.warning("Encountered error while loading player file " + f.getPath() + ": " + e.getMessage());
+					log.warning("Encountered error while loading player file "
+							+ f.getPath() + ": " + e.getMessage());
 				} catch (InvalidConfigurationException e) {
-					log.warning("Invalid player file " + f.getPath() + ": " + e.getMessage());
+					log.warning("Invalid player file " + f.getPath() + ": "
+							+ e.getMessage());
 				}
 			}
-		
+
 	}
-	
+
 	@Override
-	public void onEnable(){
-		
+	public void onEnable() {
+
 	}
-	
+
 	@Override
-	public void onDisable(){
-		for(Miner m : mm.getMiners().values())
+	public void onDisable() {
+		for (Miner m : mm.getMiners().values())
 			try {
-				m.saveMinerToYamlFile(new File(playerFolder.getPath() + File.separator + m.getPlayerName() + ".yml"));
+				m.saveMinerToYamlFile(new File(playerFolder.getPath()
+						+ File.separator + m.getPlayerName() + ".yml"));
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -57,12 +62,12 @@ public class MineCore extends JavaPlugin {
 			}
 	}
 
-        public MinerManager getMinerManager(){
-                return mm;
-        }
+	public MinerManager getMinerManager() {
+		return mm;
+	}
 
-        public Miner getMiner(){
-                return mm.getMiner();
-        }
+	public Miner getMiner(String name) {
+		return mm.getMiner(name);
+	}
 
 }
