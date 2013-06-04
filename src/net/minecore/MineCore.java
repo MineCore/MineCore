@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.logging.Logger;
 
 import org.bukkit.configuration.InvalidConfigurationException;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class MineCore extends JavaPlugin {
@@ -14,11 +15,19 @@ public class MineCore extends JavaPlugin {
 	private MinerManager mm;
 	private File playerFolder;
 	private EconomyManager em;
+	private FileConfiguration conf;
 
 	@Override
 	public void onLoad() {
 		log = this.getLogger();
 		mm = new MinerManager(this);
+		
+		conf = this.getConfig();
+		
+		conf.addDefault("useVaultEcon", false);
+		conf.addDefault("currency_block", 16);		
+		boolean useVaultEcon = conf.getBoolean("useVaultEcon");
+		
 		em = new EconomyManager();
 
 		playerFolder = new File(this.getDataFolder().getPath() + File.separator
