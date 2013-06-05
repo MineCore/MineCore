@@ -26,7 +26,7 @@ public class MineCore extends JavaPlugin {
 		conf.options().copyDefaults(true);
 		
 		conf.addDefault("useVaultEcon", false);
-		conf.addDefault("currency_item", 16);
+		conf.addDefault("currency_item", 371);
 		
 		boolean useVaultEcon = conf.getBoolean("useVaultEcon");
 		int currencyItem = conf.getInt("currency_item");
