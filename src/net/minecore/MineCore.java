@@ -23,12 +23,15 @@ public class MineCore extends JavaPlugin {
 		mm = new MinerManager(this);
 		
 		conf = this.getConfig();
+		conf.options().copyDefaults(true);
 		
 		conf.addDefault("useVaultEcon", false);
-		conf.addDefault("currency_block", 16);		
-		boolean useVaultEcon = conf.getBoolean("useVaultEcon");
+		conf.addDefault("currency_item", 16);
 		
-		em = new EconomyManager();
+		boolean useVaultEcon = conf.getBoolean("useVaultEcon");
+		int currencyItem = conf.getInt("currency_item");
+		
+		em = new EconomyManager(useVaultEcon, currencyItem, this);
 
 		playerFolder = new File(this.getDataFolder().getPath() + File.separator
 				+ "players");
@@ -47,7 +50,17 @@ public class MineCore extends JavaPlugin {
 							+ e.getMessage());
 				}
 			}
+		
+		saveConf();
 
+	}
+	
+	public void saveConf(){
+		try {
+			conf.save(new File(this.getDataFolder().getPath() + File.separator + "config.yml"));
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 	}
 
 	@Override
