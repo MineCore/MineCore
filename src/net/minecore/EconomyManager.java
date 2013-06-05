@@ -33,10 +33,8 @@ public class EconomyManager {
 	/**
 	 * Charges the player the given amount
 	 * 
-	 * @param p
-	 *            Player to charge
-	 * @param amt
-	 *            Amount to charge them (converted to int if charged in items)
+	 * @param p Player to charge
+	 * @param amt Amount to charge them (converted to int if charged in items)
 	 * @return true if it was successful
 	 */
 	public boolean charge(Player p, double amt) {
@@ -85,6 +83,14 @@ public class EconomyManager {
 		}
 		econ = rsp.getProvider();
 		return econ != null;
+	}
+	
+	/**
+	 * Gets the vault Economy being used, or null if vault is not in operation.
+	 * @return
+	 */
+	public Economy getVaultEconomy(){
+		return econ;
 	}
 
 	/**
