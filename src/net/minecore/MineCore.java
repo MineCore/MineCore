@@ -19,6 +19,8 @@ public class MineCore extends JavaPlugin {
 
 	@Override
 	public void onLoad() {
+		
+		
 		log = this.getLogger();
 		mm = new MinerManager(this);
 		
@@ -66,6 +68,13 @@ public class MineCore extends JavaPlugin {
 		int currencyItem = conf.getInt("currency_item");
 		
 		em = new EconomyManager(useVaultEcon, currencyItem, this);
+		
+		try {
+			Metrics metrics = new Metrics(this);
+			metrics.start();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 	}
 
 	@Override
