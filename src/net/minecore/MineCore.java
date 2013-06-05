@@ -28,10 +28,6 @@ public class MineCore extends JavaPlugin {
 		conf.addDefault("useVaultEcon", false);
 		conf.addDefault("currency_item", 371);
 		
-		boolean useVaultEcon = conf.getBoolean("useVaultEcon");
-		int currencyItem = conf.getInt("currency_item");
-		
-		em = new EconomyManager(useVaultEcon, currencyItem, this);
 
 		playerFolder = new File(this.getDataFolder().getPath() + File.separator
 				+ "players");
@@ -65,7 +61,11 @@ public class MineCore extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
-
+		
+		boolean useVaultEcon = conf.getBoolean("useVaultEcon");
+		int currencyItem = conf.getInt("currency_item");
+		
+		em = new EconomyManager(useVaultEcon, currencyItem, this);
 	}
 
 	@Override
