@@ -3,6 +3,7 @@ package net.minecore;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
 
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.RegisteredServiceProvider;
@@ -10,13 +11,13 @@ import org.bukkit.plugin.RegisteredServiceProvider;
 public class EconomyManager {
 
 	private boolean useVaultEcon;
-	private int currencyItemID;
+	private Material currencyItem;
 	private MineCore mc;
 	private Economy econ;
 
-	public EconomyManager(boolean useVaultEcon, int currencyItem, MineCore mc) {
+	public EconomyManager(boolean useVaultEcon, Material currencyItem, MineCore mc) {
 		this.useVaultEcon = useVaultEcon;
-		this.currencyItemID = currencyItem;
+		this.currencyItem = currencyItem;
 		this.mc = mc;
 
 		if (useVaultEcon) {
@@ -46,8 +47,8 @@ public class EconomyManager {
 			return resp.transactionSuccess();
 		} else {
 
-			if (p.getInventory().contains(currencyItemID, (int) amt)) {
-				p.getInventory().removeItem(new ItemStack(currencyItemID, (int) amt));
+			if (p.getInventory().contains(currencyItem, (int) amt)) {
+				p.getInventory().removeItem(new ItemStack(currencyItem, (int) amt));
 				return true;
 			}
 
@@ -67,7 +68,7 @@ public class EconomyManager {
 		if (useVaultEcon) 
 			econ.depositPlayer(p.getName(), amt);
 		else
-			for(ItemStack is : p.getInventory().addItem(new ItemStack(currencyItemID, (int) amt)).values())
+			for(ItemStack is : p.getInventory().addItem(new ItemStack(currencyItem, (int) amt)).values())
 				p.getLocation().getWorld().dropItem(p.getLocation(), is);
 
 	}
@@ -101,18 +102,18 @@ public class EconomyManager {
 	}
 
 	/**
-	 * @return the currencyItemID
+	 * @return the currencyItem
 	 */
-	public int getCurrencyItemID() {
-		return currencyItemID;
+	public Material getCurrencyItem() {
+		return currencyItem;
 	}
 
 	/**
-	 * @param currencyItemID
-	 *            the currencyItemID to set
+	 * @param currencyItem
+	 *            the currencyItem to set
 	 */
-	public void setCurrencyItemID(int currencyItemID) {
-		this.currencyItemID = currencyItemID;
+	public void setCurrencyItemID(Material currencyItem) {
+		this.currencyItem = currencyItem;
 	}
 
 }

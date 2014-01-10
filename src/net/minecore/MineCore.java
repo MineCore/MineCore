@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.logging.Logger;
 
+import org.bukkit.Material;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -65,7 +66,7 @@ public class MineCore extends JavaPlugin {
 	public void onEnable() {
 		
 		boolean useVaultEcon = conf.getBoolean("useVaultEcon");
-		int currencyItem = conf.getInt("currency_item");
+		Material currencyItem = Material.matchMaterial(conf.getString("currency_item"));
 		
 		em = new EconomyManager(useVaultEcon, currencyItem, this);
 		
