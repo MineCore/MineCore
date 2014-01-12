@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import org.bukkit.Material;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class MineCore extends JavaPlugin {
@@ -23,13 +24,13 @@ public class MineCore extends JavaPlugin {
 		
 		
 		log = this.getLogger();
-		mm = new MinerManager(this);
+		mm = new MinerManager();
 		
 		conf = this.getConfig();
 		conf.options().copyDefaults(true);
 		
 		conf.addDefault("useVaultEcon", false);
-		conf.addDefault("currency_item", 371);
+		conf.addDefault("currency_item", Material.EMERALD.name());
 		
 
 		playerFolder = new File(this.getDataFolder().getPath() + File.separator
@@ -54,7 +55,7 @@ public class MineCore extends JavaPlugin {
 
 	}
 	
-	public void saveConf(){
+	private void saveConf(){
 		try {
 			conf.save(new File(this.getDataFolder().getPath() + File.separator + "config.yml"));
 		} catch (IOException e1) {
@@ -97,14 +98,36 @@ public class MineCore extends JavaPlugin {
 			}
 	}
 
+	/**
+	 * Gets the MinerManager, which manages all miners
+	 * @return the MinerManager instance
+	 */
 	public MinerManager getMinerManager() {
 		return mm;
 	}
 
-	public Miner getMiner(String name) {
-		return mm.getMiner(name);
+	/**
+	 * Helper method to get the Miner instance for the given player
+	 * @param name The name of the player
+	 * @return A Miner instance
+	 */
+	public Miner getMiner(String playerName) {
+		return mm.getMiner(playerName);
 	}
 	
+	/**
+	 * Helper method to get the Miner instance for the given player
+	 * @param player a Player
+	 * @return A Miner instance
+	 */
+	public Miner getMiner(Player player) {
+		return mm.getMiner(player);
+	}
+	
+	/**
+	 * Get the EconomyManager instance
+	 * @return an EconomyManager
+	 */
 	public EconomyManager getEconomyManager(){
 		return em;
 	}
