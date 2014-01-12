@@ -2,7 +2,7 @@ main: net.minecore.MineCore
 author: Numenorean95
 authors: [tcoan98]
 name: MineCore
-version: 1.0.1
+version: 1.0.2
 loadbefore: [MinePermit, MinePlot]
 softdepend: [Vault]
 
